@@ -20,7 +20,7 @@ public class TestBoardStandard {
 	@Test
 	public void testGetPiece() {
 		Board board = new BoardStandard(8,8);
-		Piece piece = board.getPiece(new CoordsStandard(1,1));
+		Piece piece = board.getPiece(new CoordsStandard('a',1));
 		assertEquals(PieceType.ROOK, piece.getType());
 		assertEquals(PieceColour.WHITE, piece.getColour());
 	}

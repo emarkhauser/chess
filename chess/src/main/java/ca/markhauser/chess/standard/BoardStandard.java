@@ -13,25 +13,51 @@ public class BoardStandard implements Board {
 
 	public BoardStandard(int maxFiles, int maxRanks) {
 		board = new SpaceStandard[maxFiles][maxRanks];
-		for (int i=0; i<maxFiles; i++) {
-			for (int j=0; j<maxRanks; j++) {
+		for (int i = 0; i < maxFiles; i++) {
+			for (int j = 0; j < maxRanks; j++) {
 				board[i][j] = new SpaceStandard();
 			}
 		}
-		setPiece(new PieceStandard(PieceType.ROOK, PieceColour.WHITE), new CoordsStandard(1,1));
+		setPiece(new PieceStandard(PieceType.ROOK, PieceColour.WHITE), new CoordsStandard('a', 1));
+		setPiece(new PieceStandard(PieceType.KNIGHT, PieceColour.WHITE), new CoordsStandard('b', 1));
+		setPiece(new PieceStandard(PieceType.BISHOP, PieceColour.WHITE), new CoordsStandard('c', 1));
 	}
-	
+
+	private int getFileNumber(char file) {
+		switch (file) {
+		case 'a':
+			return 1;
+		case 'b':
+			return 2;
+		case 'c':
+			return 3;
+		case 'd':
+			return 4;
+		case 'e':
+			return 5;
+		case 'f':
+			return 6;
+		case 'g':
+			return 7;
+		case 'h':
+			return 8;
+		}
+		return 0;
+	}
+
 	public void setPiece(Piece piece, Coords coords) {
-		int file = coords.getFile();
+		char file = coords.getFile();
+		int fileNumber = getFileNumber(file);
 		int rank = coords.getRank();
-		board[file-1][rank-1].setPiece(piece);
+		board[fileNumber - 1][rank - 1].setPiece(piece);
 	}
 
 	@Override
 	public Piece getPiece(Coords coords) {
-		int file = coords.getFile();
+		char file = coords.getFile();
+		int fileNumber = getFileNumber(file);
 		int rank = coords.getRank();
-		return board[file-1][rank-1].getPiece();
+		return board[fileNumber - 1][rank - 1].getPiece();
 	}
 
 }

@@ -1,6 +1,5 @@
 package ca.markhauser.chess;
 
 public enum PieceType {
-	ROOK
-	
+	ROOK, KNIGHT, BISHOP, QUEEN, KING, PAWN
 }

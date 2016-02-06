@@ -2,7 +2,7 @@ package ca.markhauser.chess;
 
 public interface Coords {
 
-	int getFile();
+	char getFile();
 
 	int getRank();
 

@@ -26,7 +26,6 @@ public class ChessStandard implements Chess {
 	@Override
 	public void newGame() {
 		board = new BoardStandard(maxBoardFiles, maxBoardRanks);
-		
 	}
 
 	/* (non-Javadoc)

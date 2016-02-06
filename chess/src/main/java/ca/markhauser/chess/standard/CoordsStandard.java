@@ -4,15 +4,15 @@ import ca.markhauser.chess.Coords;
 
 public class CoordsStandard implements Coords {
 
-	private int file;
+	private char file;
 	private int rank;
 
-	public CoordsStandard(int file, int rank) {
+	public CoordsStandard(char file, int rank) {
 		this.file = file;
 		this.rank = rank;
 	}
 
-	public int getFile() {
+	public char getFile() {
 		return file;
 	}
 
