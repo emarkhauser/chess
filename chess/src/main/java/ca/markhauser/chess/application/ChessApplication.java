@@ -1,4 +1,4 @@
-package ca.markhauser.chess;
+package ca.markhauser.chess.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
