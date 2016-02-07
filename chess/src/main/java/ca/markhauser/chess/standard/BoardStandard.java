@@ -18,31 +18,9 @@ public class BoardStandard implements Board {
 		}
 	}
 
-	private int getFileNumber(char file) {
-		switch (file) {
-		case 'a':
-			return 1;
-		case 'b':
-			return 2;
-		case 'c':
-			return 3;
-		case 'd':
-			return 4;
-		case 'e':
-			return 5;
-		case 'f':
-			return 6;
-		case 'g':
-			return 7;
-		case 'h':
-			return 8;
-		}
-		return 0;
-	}
-
 	public void setPiece(Piece piece, Coords coords) {
 		char file = coords.getFile();
-		int fileNumber = getFileNumber(file);
+		int fileNumber = ChessUtilities.fileToNumber(file);
 		int rank = coords.getRank();
 		board[fileNumber - 1][rank - 1].setPiece(piece);
 	}
@@ -50,7 +28,7 @@ public class BoardStandard implements Board {
 	@Override
 	public Piece getPiece(Coords coords) {
 		char file = coords.getFile();
-		int fileNumber = getFileNumber(file);
+		int fileNumber = ChessUtilities.fileToNumber(file);
 		int rank = coords.getRank();
 		return board[fileNumber - 1][rank - 1].getPiece();
 	}

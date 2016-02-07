@@ -9,7 +9,7 @@ public interface Chess {
 	/**
 	 * Pass move for processing.  Returns result if legal or illegal move made.
 	 */
-	MoveResult makeMove(Move move);
+	MoveResult move(Move move);
 	
 	/**
 	 * Get colour of the current player

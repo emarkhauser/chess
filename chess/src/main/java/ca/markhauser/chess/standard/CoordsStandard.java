@@ -13,12 +13,11 @@ public class CoordsStandard implements Coords {
 	}
 
 	public char getFile() {
-		return file;
+		return this.file;
 	}
 
 	public int getRank() {
-		return rank;
-	}
-	
+		return this.rank;
+	}	
 	
 }

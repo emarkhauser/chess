@@ -5,8 +5,10 @@ package ca.markhauser.chess.standard;
 
 import ca.markhauser.chess.Board;
 import ca.markhauser.chess.Chess;
+import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.Move;
 import ca.markhauser.chess.MoveResult;
+import ca.markhauser.chess.Piece;
 import ca.markhauser.chess.PieceColour;
 import ca.markhauser.chess.PieceType;
 import ca.markhauser.chess.Winner;
@@ -69,14 +71,77 @@ public class ChessStandard implements Chess {
 		this.board.setPiece(new PieceStandard(PieceType.PAWN, PieceColour.BLACK), new CoordsStandard('h', 7));
 	}
 
+	private boolean outOfRange(Coords coords) {		
+		int file = ChessUtilities.fileToNumber(coords.getFile());
+		int rank = coords.getRank();
+		
+		if ((file > 8) || (file < 1) || (rank > 8) || (rank < 1)) {
+			return true;
+		}
+		else return false;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see ca.markhauser.chess.Chess#makeMove(ca.markhauser.chess.Move)
 	 */
 	@Override
-	public MoveResult makeMove(Move move) {
-		// TODO Auto-generated method stub
+	public MoveResult move(Move move) {
+		Coords source = move.getDestCoords();
+		Coords dest = move.getDestCoords();
+		
+		if (source == dest) return MoveResult.SAMESOURCEANDDESTINATION; // need comparator
+		if (outOfRange(source)) return MoveResult.SOURCEOUTOFRANGE;
+		if (outOfRange(dest)) return MoveResult.DESTINATIONOUTOFRANGE;
+		
+		Piece piece = this.board.getPiece(source);
+		if (piece == null) return MoveResult.NOPIECEONSOURCE;
+		
+		MoveType moveType = getMoveType(move);
+		
+		int sourceFile = ChessUtilities.fileToNumber(source.getFile());
+		int sourceRank = source.getRank();
+		int destFile = ChessUtilities.fileToNumber(dest.getFile());
+		int destRank = source.getRank();
+		
+		switch (piece.getType()) {
+		case ROOK:
+
+		case KNIGHT:
+
+		case BISHOP:
+
+		case QUEEN:
+
+		case KING:
+
+		case PAWN:
+			if (moveType == MoveType.FILE) {
+				
+			}
+		}
+
+		changeToNextPlayer();
+		return MoveResult.MOVED;
+	}
+
+	private MoveType getMoveType(Move move) {
+		Coords source = move.getDestCoords();
+		Coords dest = move.getDestCoords();
+		int sourceFile = ChessUtilities.fileToNumber(source.getFile());
+		int sourceRank = source.getRank();
+		int destFile = ChessUtilities.fileToNumber(dest.getFile());
+		int destRank = source.getRank();
+		
+		if (sourceFile == destFile) {
+			return MoveType.FILE;
+		}
+		
+		if (sourceRank == destRank) {
+			return MoveType.RANK;
+		}
+
 		return null;
 	}
 
@@ -112,8 +177,7 @@ public class ChessStandard implements Chess {
 	 */
 	@Override
 	public void resign() {
-		this.winner = this.currentPlayerColour == PieceColour.WHITE ? Winner.BLACK
-				: Winner.WHITE;
+		this.winner = this.currentPlayerColour == PieceColour.WHITE ? Winner.BLACK : Winner.WHITE;
 	}
 
 	/*
