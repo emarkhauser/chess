@@ -7,11 +7,6 @@ package ca.markhauser.chess;
 public interface Chess {
 	
 	/**
-	 * Setup new game with board and winners refreshed.
-	 */
-	void newGame();
-	
-	/**
 	 * Pass move for processing.  Returns result if legal or illegal move made.
 	 */
 	MoveResult makeMove(Move move);

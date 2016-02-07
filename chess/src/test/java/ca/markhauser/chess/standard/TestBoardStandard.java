@@ -18,9 +18,25 @@ import ca.markhauser.chess.application.ChessApplication;
 public class TestBoardStandard {
 
 	@Test
+	public void testGetPieceNotNull() {
+		Board board = new BoardStandard(8,8);
+		board.setPiece(new PieceStandard(PieceType.ROOK, PieceColour.WHITE), new CoordsStandard('a', 1));
+		Piece piece = board.getPiece(new CoordsStandard('a', 1));
+		assertNotNull(piece);
+	}
+	
+	@Test
+	public void testGetPieceNull() {
+		Board board = new BoardStandard(8,8);
+		Piece piece = board.getPiece(new CoordsStandard('d', 5));
+		assertNull(piece);
+	}
+	
+	@Test
 	public void testGetPiece() {
 		Board board = new BoardStandard(8,8);
-		Piece piece = board.getPiece(new CoordsStandard('a',1));
+		board.setPiece(new PieceStandard(PieceType.ROOK, PieceColour.WHITE), new CoordsStandard('a', 1));
+		Piece piece = board.getPiece(new CoordsStandard('a', 1));
 		assertEquals(PieceType.ROOK, piece.getType());
 		assertEquals(PieceColour.WHITE, piece.getColour());
 	}

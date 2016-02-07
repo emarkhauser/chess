@@ -3,8 +3,6 @@ package ca.markhauser.chess.standard;
 import ca.markhauser.chess.Board;
 import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.Piece;
-import ca.markhauser.chess.PieceColour;
-import ca.markhauser.chess.PieceType;
 import ca.markhauser.chess.Space;
 
 public class BoardStandard implements Board {
@@ -18,9 +16,6 @@ public class BoardStandard implements Board {
 				board[i][j] = new SpaceStandard();
 			}
 		}
-		setPiece(new PieceStandard(PieceType.ROOK, PieceColour.WHITE), new CoordsStandard('a', 1));
-		setPiece(new PieceStandard(PieceType.KNIGHT, PieceColour.WHITE), new CoordsStandard('b', 1));
-		setPiece(new PieceStandard(PieceType.BISHOP, PieceColour.WHITE), new CoordsStandard('c', 1));
 	}
 
 	private int getFileNumber(char file) {
