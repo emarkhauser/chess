@@ -71,16 +71,6 @@ public class ChessStandard implements Chess {
 		this.board.setPiece(new PieceStandard(PieceType.PAWN, PieceColour.BLACK), new CoordsStandard('h', 7));
 	}
 
-	private boolean outOfRange(Coords coords) {		
-		int file = ChessUtilities.fileToNumber(coords.getFile());
-		int rank = coords.getRank();
-		
-		if ((file > 8) || (file < 1) || (rank > 8) || (rank < 1)) {
-			return true;
-		}
-		else return false;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -90,21 +80,25 @@ public class ChessStandard implements Chess {
 	public MoveResult move(Move move) {
 		Coords source = move.getDestCoords();
 		Coords dest = move.getDestCoords();
-		
-		if (source == dest) return MoveResult.SAMESOURCEANDDESTINATION; // need comparator
-		if (outOfRange(source)) return MoveResult.SOURCEOUTOFRANGE;
-		if (outOfRange(dest)) return MoveResult.DESTINATIONOUTOFRANGE;
-		
+
+		if (source == dest)
+			return MoveResult.SAMESOURCEANDDESTINATION; // need comparator
+		if (outOfRange(source))
+			return MoveResult.SOURCEOUTOFRANGE;
+		if (outOfRange(dest))
+			return MoveResult.DESTINATIONOUTOFRANGE;
+
 		Piece piece = this.board.getPiece(source);
-		if (piece == null) return MoveResult.NOPIECEONSOURCE;
-		
+		if (piece == null)
+			return MoveResult.NOPIECEONSOURCE;
+
 		MoveType moveType = getMoveType(move);
-		
+
 		int sourceFile = ChessUtilities.fileToNumber(source.getFile());
 		int sourceRank = source.getRank();
 		int destFile = ChessUtilities.fileToNumber(dest.getFile());
 		int destRank = source.getRank();
-		
+
 		switch (piece.getType()) {
 		case ROOK:
 
@@ -117,32 +111,69 @@ public class ChessStandard implements Chess {
 		case KING:
 
 		case PAWN:
-			if (moveType == MoveType.FILE) {
-				
-			}
+			
 		}
 
 		changeToNextPlayer();
 		return MoveResult.MOVED;
 	}
 
+	private boolean outOfRange(Coords coords) {
+		int file = ChessUtilities.fileToNumber(coords.getFile());
+		int rank = coords.getRank();
+
+		if ((file > maxBoardFiles) || (file < 1) || (rank > maxBoardRanks) || (rank < 1)) {
+			return true;
+		} else
+			return false;
+	}
+
 	private MoveType getMoveType(Move move) {
+
+		if (getMoveDistance(move) == 0)
+			return null;
+
 		Coords source = move.getDestCoords();
 		Coords dest = move.getDestCoords();
+
+		if (outOfRange(source))
+			return MoveType.ILLEGALMOVE;
+		if (outOfRange(dest))
+			return MoveType.ILLEGALMOVE;
+
 		int sourceFile = ChessUtilities.fileToNumber(source.getFile());
 		int sourceRank = source.getRank();
 		int destFile = ChessUtilities.fileToNumber(dest.getFile());
 		int destRank = source.getRank();
+
+		if ((Math.abs(sourceFile - destFile) == 2) && (Math.abs(sourceRank - destRank) == 1))
+			return MoveType.KNIGHT;
 		
+		if ((Math.abs(sourceFile - destFile) == 1) && (Math.abs(sourceRank - destRank) == 2))
+			return MoveType.KNIGHT;
+
+		if (Math.abs(sourceFile - destFile) == Math.abs(sourceRank - destRank))
+			return MoveType.DIAGNONAL;
+
 		if (sourceFile == destFile) {
-			return MoveType.FILE;
-		}
-		
-		if (sourceRank == destRank) {
-			return MoveType.RANK;
+			if (destRank > sourceRank)
+				return MoveType.FILEBLACK;
+			else
+				return MoveType.FILEWHITE;
 		}
 
-		return null;
+		if (sourceRank == destRank) {
+			if (destFile > sourceFile)
+				return MoveType.RANKKING;
+			else
+				return MoveType.RANKQUEEN;
+		}
+
+		return MoveType.ILLEGALMOVE;
+	}
+
+	private int getMoveDistance(Move move) {
+		return 0;
 	}
 
 	private void changeToNextPlayer() {

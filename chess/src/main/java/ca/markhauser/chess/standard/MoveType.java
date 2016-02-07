@@ -1,5 +1,5 @@
 package ca.markhauser.chess.standard;
 
 public enum MoveType {
-	DIAGNONAL, KNIGHT, FILE, RANK
+	DIAGNONAL, KNIGHT, FILEWHITE, FILEBLACK, RANKKING, RANKQUEEN, ILLEGALMOVE
 }
