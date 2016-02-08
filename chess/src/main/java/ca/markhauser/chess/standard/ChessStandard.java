@@ -87,6 +87,8 @@ public class ChessStandard implements Chess {
 		int destRank = dest.getRank();
 		Piece piece = this.board.getPiece(source);
 
+		MoveAnalyzer moveAnalyzer = new MoveAnalyzer(sourceFile, sourceRank, destFile, destRank);
+
 		if (source == dest)
 			return MoveResult.SAMESOURCEANDDESTINATION; // need comparator
 		if (outOfRange(sourceFile, sourceRank))
@@ -100,30 +102,30 @@ public class ChessStandard implements Chess {
 		case ROOK:
 			if (isAnotherPieceInPath())
 				return MoveResult.ANOTHERPIECEINPATH;
-			if (isFileRankMove(sourceFile, sourceRank, destFile, destRank))
+			if (moveAnalyzer.isFileRankMove())
 				return MoveResult.MOVED;
 		case KNIGHT:
-			if (isKnightMove(sourceFile, sourceRank, destFile, destRank)) {
+			if (moveAnalyzer.isKnightMove()) {
 				return MoveResult.MOVED;
 			}
 		case BISHOP:
 			if (isAnotherPieceInPath())
 				return MoveResult.ANOTHERPIECEINPATH;
-			if (isDiagonalMove(sourceFile, sourceRank, destFile, destRank)) {
+			if (moveAnalyzer.isDiagonalMove()) {
 				return MoveResult.MOVED;
 			}
 		case QUEEN:
 			if (isAnotherPieceInPath())
 				return MoveResult.ANOTHERPIECEINPATH;
-			if (isFileRankDiagonalMove(sourceFile, sourceRank, destFile, destRank)) {
+			if (moveAnalyzer.isFileRankDiagonalMove()) {
 				return MoveResult.MOVED;
-			}			
+			}
 		case KING:
 			if (isAnotherPieceInPath())
 				return MoveResult.ANOTHERPIECEINPATH;
-			if (isFileRankDiagonalMove(sourceFile, sourceRank, destFile, destRank)) {
+			if (moveAnalyzer.isFileRankDiagonalMove()) {
 				return MoveResult.MOVED;
-			}	
+			}
 		case PAWN:
 
 		}
@@ -131,15 +133,58 @@ public class ChessStandard implements Chess {
 		changeToNextPlayer();
 		return MoveResult.MOVED;
 	}
-	
-	private boolean isFileRankDiagonalMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return isFileRankMove(sourceFile, sourceRank, destFile, destRank)
-				|| isDiagonalMove(sourceFile, sourceRank, destFile, destRank);
-	}
 
-	private boolean isFileRankMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return isFileMove(sourceFile, sourceRank, destFile, destRank)
-				|| isRankMove(sourceFile, sourceRank, destFile, destRank);
+	private class MoveAnalyzer {
+		int sourceFile, sourceRank, destFile, destRank;
+
+		public MoveAnalyzer(int sourceFile, int sourceRank, int destFile, int destRank) {
+			this.sourceFile = sourceFile;
+			this.sourceRank = sourceRank;
+			this.destFile = destFile;
+			this.destRank = destRank;
+		}
+
+		private boolean isFileRankDiagonalMove() {
+			return isFileRankMove() || isDiagonalMove();
+		}
+
+		private boolean isFileRankMove() {
+			return isFileMove() || isRankMove();
+		}
+
+		private boolean isKnightMove() {
+			return ((Math.abs(sourceFile - destFile) == 2) && (Math.abs(sourceRank - destRank) == 1))
+					|| ((Math.abs(sourceFile - destFile) == 1) && (Math.abs(sourceRank - destRank) == 2));
+		}
+
+		private boolean isDiagonalMove() {
+			return Math.abs(sourceFile - destFile) == Math.abs(sourceRank - destRank);
+		}
+
+		private boolean isFileMove() {
+			return isFileBlackMove() || isFileWhiteMove();
+		}
+
+		private boolean isFileBlackMove() {
+			return (sourceFile == destFile) && (destRank > sourceRank);
+		}
+
+		private boolean isFileWhiteMove() {
+			return (sourceFile == destFile) && (destRank < sourceRank);
+		}
+
+		private boolean isRankMove() {
+			return isRankKingMove() || isRankQueenMove();
+		}
+
+		private boolean isRankKingMove() {
+			return (sourceRank == destRank) && (destFile > sourceFile);
+		}
+
+		private boolean isRankQueenMove() {
+			return (sourceRank == destRank) && (destFile < sourceFile);
+		}
+
 	}
 
 	private boolean isAnotherPieceInPath() {
@@ -147,43 +192,8 @@ public class ChessStandard implements Chess {
 		return false;
 	}
 
-	private boolean isKnightMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return ((Math.abs(sourceFile - destFile) == 2) && (Math.abs(sourceRank - destRank) == 1))
-				|| ((Math.abs(sourceFile - destFile) == 1) && (Math.abs(sourceRank - destRank) == 2));
-	}
-
 	private boolean outOfRange(int file, int rank) {
 		return (file > maxBoardFiles) || (file < 1) || (rank > maxBoardRanks) || (rank < 1);
-	}
-
-	private boolean isDiagonalMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return Math.abs(sourceFile - destFile) == Math.abs(sourceRank - destRank);
-	}
-
-	private boolean isFileMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return isFileBlackMove(sourceFile, sourceRank, destFile, destRank)
-				|| isFileWhiteMove(sourceFile, sourceRank, destFile, destRank);
-	}
-
-	private boolean isFileBlackMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return (sourceFile == destFile) && (destRank > sourceRank);
-	}
-
-	private boolean isFileWhiteMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return (sourceFile == destFile) && (destRank < sourceRank);
-	}
-
-	private boolean isRankMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return isRankKingMove(sourceFile, sourceRank, destFile, destRank)
-				|| isRankQueenMove(sourceFile, sourceRank, destFile, destRank);
-	}
-
-	private boolean isRankKingMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return (sourceRank == destRank) && (destFile > sourceFile);
-	}
-
-	private boolean isRankQueenMove(int sourceFile, int sourceRank, int destFile, int destRank) {
-		return (sourceRank == destRank) && (destFile < sourceFile);
 	}
 
 	private void changeToNextPlayer() {
