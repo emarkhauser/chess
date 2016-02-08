@@ -19,18 +19,16 @@ public class BoardStandard implements Board {
 	}
 
 	public void setPiece(Piece piece, Coords coords) {
-		char file = coords.getFile();
-		int fileNumber = ChessUtilities.fileToNumber(file);
+		int file = coords.getFileNumber();
 		int rank = coords.getRank();
-		board[fileNumber - 1][rank - 1].setPiece(piece);
+		board[file - 1][rank - 1].setPiece(piece);
 	}
 
 	@Override
 	public Piece getPiece(Coords coords) {
-		char file = coords.getFile();
-		int fileNumber = ChessUtilities.fileToNumber(file);
+		int file = coords.getFileNumber();
 		int rank = coords.getRank();
-		return board[fileNumber - 1][rank - 1].getPiece();
+		return board[file - 1][rank - 1].getPiece();
 	}
 
 }

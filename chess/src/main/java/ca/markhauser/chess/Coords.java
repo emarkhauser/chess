@@ -6,4 +6,6 @@ public interface Coords {
 
 	int getRank();
 
+	int getFileNumber();
+
 }
