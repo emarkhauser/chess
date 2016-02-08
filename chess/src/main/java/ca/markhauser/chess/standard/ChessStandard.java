@@ -100,29 +100,28 @@ public class ChessStandard implements Chess {
 
 		switch (piece.getType()) {
 		case ROOK:
-			if (isAnotherPieceInPath())
-				return MoveResult.ANOTHERPIECEINPATH;
-			if (moveAnalyzer.isFileRankMove())
+			if (moveAnalyzer.isFileRankMove()) {
+				if (isAnotherPieceInPath())
+					return MoveResult.ANOTHERPIECEINPATH;
 				return MoveResult.MOVED;
+			}
 		case KNIGHT:
 			if (moveAnalyzer.isKnightMove()) {
 				return MoveResult.MOVED;
 			}
 		case BISHOP:
-			if (isAnotherPieceInPath())
-				return MoveResult.ANOTHERPIECEINPATH;
 			if (moveAnalyzer.isDiagonalMove()) {
+				if (isAnotherPieceInPath())
+					return MoveResult.ANOTHERPIECEINPATH;
 				return MoveResult.MOVED;
 			}
 		case QUEEN:
-			if (isAnotherPieceInPath())
-				return MoveResult.ANOTHERPIECEINPATH;
 			if (moveAnalyzer.isFileRankDiagonalMove()) {
+				if (isAnotherPieceInPath())
+					return MoveResult.ANOTHERPIECEINPATH;
 				return MoveResult.MOVED;
 			}
 		case KING:
-			if (isAnotherPieceInPath())
-				return MoveResult.ANOTHERPIECEINPATH;
 			if (moveAnalyzer.isFileRankDiagonalMove()) {
 				return MoveResult.MOVED;
 			}
@@ -190,6 +189,11 @@ public class ChessStandard implements Chess {
 	private boolean isAnotherPieceInPath() {
 		// TODO
 		return false;
+	}
+	
+	private int moveDistance() {
+		// TODO
+		return 0;
 	}
 
 	private boolean outOfRange(int file, int rank) {
