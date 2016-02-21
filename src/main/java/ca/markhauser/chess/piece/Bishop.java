@@ -2,9 +2,9 @@ package ca.markhauser.chess.piece;
 
 import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.enums.PieceColour;
-import ca.markhauser.chess.piece.move.DiagonalMovable;
+import ca.markhauser.chess.piece.move.MoveUtil;
 
-public class Bishop extends Piece implements DiagonalMovable {
+public class Bishop extends Piece {
 
 	public Bishop(PieceColour colour) {
 		super(colour);
@@ -12,7 +12,7 @@ public class Bishop extends Piece implements DiagonalMovable {
 
 	@Override
 	public boolean validMovePattern(Coords source, Coords dest) {
-		return isDiagonalMove(source, dest);
+		return MoveUtil.isDiagonalMove(source, dest);
 	}
 
 }
