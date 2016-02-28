@@ -4,7 +4,7 @@ import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.piece.move.Jumpable;
 
-public class Knight extends Piece implements Jumpable {
+public class Knight extends AbstractPiece implements Jumpable {
 
 	public Knight(PieceColour colour) {
 		super(colour);
