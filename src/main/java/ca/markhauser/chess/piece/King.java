@@ -5,7 +5,7 @@ import ca.markhauser.chess.piece.move.LimitedDistance;
 import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
-public class King extends AbstractPiece implements LimitedDistance {
+class King extends AbstractPiece implements LimitedDistance {
 
 	protected King(PieceColour colour) {
 		super(colour);

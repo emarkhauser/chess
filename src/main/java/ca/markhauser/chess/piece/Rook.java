@@ -4,7 +4,7 @@ import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
-public class Rook extends AbstractPiece {
+class Rook extends AbstractPiece {
 
 	protected Rook(PieceColour colour) {
 		super(colour);

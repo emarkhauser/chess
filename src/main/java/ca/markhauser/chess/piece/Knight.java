@@ -4,7 +4,7 @@ import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.piece.move.Jumpable;
 import ca.markhauser.chess.space.Space;
 
-public class Knight extends AbstractPiece implements Jumpable {
+class Knight extends AbstractPiece implements Jumpable {
 
 	protected Knight(PieceColour colour) {
 		super(colour);
