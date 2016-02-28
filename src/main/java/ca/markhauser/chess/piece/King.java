@@ -1,13 +1,13 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.piece.move.LimitedDistance;
 import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
 class King extends AbstractPiece implements LimitedDistance {
 
-	protected King(PieceColour colour) {
+	protected King(Colour colour) {
 		super(colour);
 	}
 

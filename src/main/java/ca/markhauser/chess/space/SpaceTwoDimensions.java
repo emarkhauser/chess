@@ -1,18 +1,23 @@
-package ca.markhauser.chess;
+package ca.markhauser.chess.space;
 
+import ca.markhauser.chess.Board;
 import ca.markhauser.chess.exception.OutOfBoardRange;
 
-public class Coords {
+class SpaceTwoDimensions implements Space, Cloneable {
 
 	private char file;
 	private int rank;
 
-	public Coords(char file, int rank) throws OutOfBoardRange {
+	protected SpaceTwoDimensions(char file, int rank) throws OutOfBoardRange {
 		this.file = file;
 		this.rank = rank;
 
 		if (!inRange())
 			throw new OutOfBoardRange();
+	}
+
+	protected SpaceTwoDimensions(int file, int rank) {
+		// TODO Auto-generated constructor stub
 	}
 
 	private boolean inRange() {
@@ -50,8 +55,21 @@ public class Coords {
 		return 0;
 	}
 
-	public boolean equals(Coords coords) {
+	public boolean equals(SpaceTwoDimensions coords) {
 		return (coords.getFileNumber() == this.getFileNumber()) && (coords.getRank() == this.getRank());
+	}
+
+	public Object clone() {
+		Object clone = null;
+
+		try {
+			clone = super.clone();
+
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+
+		return clone;
 	}
 
 }

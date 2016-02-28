@@ -3,7 +3,7 @@
  */
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.space.Space;
 
 /**
@@ -12,7 +12,7 @@ import ca.markhauser.chess.space.Space;
  */
 public interface Piece {
 
-	PieceColour getColour();
+	Colour getColour();
 	boolean validMovePattern(Space source, Space dest);
 	
 }

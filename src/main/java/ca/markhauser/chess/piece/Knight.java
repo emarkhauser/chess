@@ -1,12 +1,12 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.piece.move.Jumpable;
 import ca.markhauser.chess.space.Space;
 
 class Knight extends AbstractPiece implements Jumpable {
 
-	protected Knight(PieceColour colour) {
+	protected Knight(Colour colour) {
 		super(colour);
 	}
 

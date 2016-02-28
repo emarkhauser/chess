@@ -1,12 +1,12 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.piece.move.LimitedDistance;
 import ca.markhauser.chess.space.Space;
 
 class Pawn extends AbstractPiece implements LimitedDistance {
 
-	protected Pawn(PieceColour colour) {
+	protected Pawn(Colour colour) {
 		super(colour);
 	}
 

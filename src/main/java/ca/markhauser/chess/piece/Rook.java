@@ -1,12 +1,12 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
 class Rook extends AbstractPiece {
 
-	protected Rook(PieceColour colour) {
+	protected Rook(Colour colour) {
 		super(colour);
 	}
 

@@ -4,11 +4,12 @@
 package ca.markhauser.chess;
 
 import ca.markhauser.chess.Chess;
-import ca.markhauser.chess.enums.PieceColour;
-import ca.markhauser.chess.enums.Winner;
+import ca.markhauser.chess.colour.Colour;
+import ca.markhauser.chess.colour.ColourFactory;
 import ca.markhauser.chess.exception.InvalidMove;
 import ca.markhauser.chess.exception.NoPieceOnSpace;
 import ca.markhauser.chess.exception.PieceNotMoved;
+import ca.markhauser.chess.space.Space;
 
 /**
  * @author Admin Account HP
@@ -17,8 +18,8 @@ import ca.markhauser.chess.exception.PieceNotMoved;
 public class Chess {
 
 	private Board board;
-	private PieceColour currentPlayerColour = PieceColour.WHITE;
-	private Winner winner = Winner.NOTDONE;
+	private Colour currentPlayerColour = ColourFactory.getColour("WHITE");
+	private Colour winner = null;
 	private boolean isCheck = false;
 	private boolean isCheckmate = false;
 
@@ -26,7 +27,7 @@ public class Chess {
 		this.board = new Board();
 	}
 
-	public void move(Coords source, Coords dest) {
+	public void move(Space source, Space dest) {
 		try {
 			board.movePiece(source, dest);
 		} catch (InvalidMove e) {
@@ -40,11 +41,11 @@ public class Chess {
 	}
 
 	private void changeToNextPlayer() {
-		this.currentPlayerColour = this.currentPlayerColour == PieceColour.WHITE ? PieceColour.BLACK
-				: PieceColour.WHITE;
+		this.currentPlayerColour = this.currentPlayerColour.getColour() == "WHITE" ? ColourFactory.getColour("BLACK")
+				: ColourFactory.getColour("WHITE");
 	}
 
-	public PieceColour getCurrentPlayerColour() {
+	public Colour getCurrentPlayerColour() {
 		return this.currentPlayerColour;
 	}
 
@@ -53,7 +54,7 @@ public class Chess {
 	}
 
 	public void resign() {
-		this.winner = this.currentPlayerColour == PieceColour.WHITE ? Winner.BLACK : Winner.WHITE;
+		this.winner = this.currentPlayerColour.getColour() == "WHITE" ? ColourFactory.getColour("BLACK") : ColourFactory.getColour("WHITE");
 	}
 
 	public void draw() {
@@ -68,7 +69,7 @@ public class Chess {
 		return this.isCheckmate;
 	}
 
-	public Winner getWinner() {
+	public Colour getWinner() {
 		return this.winner;
 	}
 

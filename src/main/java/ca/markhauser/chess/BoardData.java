@@ -20,6 +20,16 @@ public class BoardData {
 			return this.piece;
 		}
 
+		public int getFileNumber() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		public int getRank() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
 	}
 
 	public BoardData(int maxBoardFiles, int maxBoardRanks) {
@@ -35,9 +45,9 @@ public class BoardData {
 	 * @param piece
 	 * @param coords
 	 */
-	public void setPiece(Piece piece, Coords coords) {
-		int file = coords.getFileNumber();
-		int rank = coords.getRank();
+	public void setPiece(Piece piece, Space space) {
+		int file = space.getFileNumber();
+		int rank = space.getRank();
 		board[file - 1][rank - 1].setPiece(piece);
 	}
 	
@@ -45,9 +55,9 @@ public class BoardData {
 	 * @param coords
 	 * @return
 	 */
-	public Piece getPiece(Coords coords) {
-		int file = coords.getFileNumber();
-		int rank = coords.getRank();
+	public Piece getPiece(Space space) {
+		int file = space.getFileNumber();
+		int rank = space.getRank();
 		return board[file - 1][rank - 1].getPiece();
 	}
 }

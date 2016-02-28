@@ -1,17 +1,17 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.space.Space;
 
 abstract class AbstractPiece implements Piece {
 	
-	private PieceColour colour;
+	private Colour colour;
 
-	protected AbstractPiece(PieceColour colour) {
+	protected AbstractPiece(Colour colour) {
 		this.colour = colour;
 	}
 
-	public PieceColour getColour() {
+	public Colour getColour() {
 		return this.colour;
 	}
 

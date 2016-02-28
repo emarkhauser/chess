@@ -3,7 +3,7 @@
  */
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.colour.Colour;
 
 /**
  * @author Admin Account HP
@@ -11,7 +11,7 @@ import ca.markhauser.chess.enums.PieceColour;
  */
 public class PieceFactory {
 
-	public static Piece getPiece(String type, PieceColour colour) {
+	public static Piece getPiece(String type, Colour colour) {
 
 		if (type == null) {
 			return null;
