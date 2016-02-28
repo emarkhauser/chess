@@ -1,17 +1,17 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.piece.move.Jumpable;
+import ca.markhauser.chess.space.Space;
 
 public class Knight extends AbstractPiece implements Jumpable {
 
-	public Knight(PieceColour colour) {
+	protected Knight(PieceColour colour) {
 		super(colour);
 	}
 
 	@Override
-	public boolean validMovePattern(Coords source, Coords dest) {
+	public boolean validMovePattern(Space source, Space dest) {
 		int sourceFile = source.getFileNumber();
 		int sourceRank = source.getRank();
 		int destFile = dest.getFileNumber();

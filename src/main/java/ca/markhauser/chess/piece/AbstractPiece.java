@@ -1,13 +1,13 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.space.Space;
 
-public abstract class AbstractPiece implements Piece {
+abstract class AbstractPiece implements Piece {
 	
 	private PieceColour colour;
 
-	public AbstractPiece(PieceColour colour) {
+	protected AbstractPiece(PieceColour colour) {
 		this.colour = colour;
 	}
 
@@ -15,6 +15,6 @@ public abstract class AbstractPiece implements Piece {
 		return this.colour;
 	}
 
-	public abstract boolean validMovePattern(Coords source, Coords dest);
+	public abstract boolean validMovePattern(Space source, Space dest);
 	
 }

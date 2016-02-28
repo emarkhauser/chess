@@ -1,17 +1,17 @@
 package ca.markhauser.chess.piece;
 
-import ca.markhauser.chess.Coords;
 import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.piece.move.MoveUtil;
+import ca.markhauser.chess.space.Space;
 
 public class Rook extends AbstractPiece {
 
-	public Rook(PieceColour colour) {
+	protected Rook(PieceColour colour) {
 		super(colour);
 	}
 
 	@Override
-	public boolean validMovePattern(Coords source, Coords dest) {		
+	public boolean validMovePattern(Space source, Space dest) {		
 		return MoveUtil.isFileMove(source, dest) || MoveUtil.isRankMove(source, dest);
 	}
 
