@@ -1,4 +1,4 @@
-package ca.markhauser.chess;
+package ca.markhauser.chess.board;
 
 import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.colour.ColourFactory;
@@ -12,13 +12,13 @@ import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 import ca.markhauser.chess.space.SpaceFactory;
 
-public class Board {
+public class StandardBoard implements Board {
 
 	BoardData boardData = new BoardData(maxBoardFiles, maxBoardRanks);
 	public final static int maxBoardFiles = 8;
 	public final static int maxBoardRanks = 8;
 
-	public Board() {
+	public StandardBoard() {
 		try {
 			setup();
 		} catch (OutOfBoardRange e) {

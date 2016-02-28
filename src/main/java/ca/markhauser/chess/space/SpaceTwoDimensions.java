@@ -1,6 +1,6 @@
 package ca.markhauser.chess.space;
 
-import ca.markhauser.chess.Board;
+import ca.markhauser.chess.board.StandardBoard;
 import ca.markhauser.chess.exception.OutOfBoardRange;
 
 class SpaceTwoDimensions implements Space, Cloneable {
@@ -21,7 +21,7 @@ class SpaceTwoDimensions implements Space, Cloneable {
 	}
 
 	private boolean inRange() {
-		return getFileNumber() <= Board.maxBoardFiles && getFileNumber() >= 1 && this.rank <= Board.maxBoardRanks
+		return getFileNumber() <= StandardBoard.maxBoardFiles && getFileNumber() >= 1 && this.rank <= StandardBoard.maxBoardRanks
 				&& rank >= 1;
 	}
 

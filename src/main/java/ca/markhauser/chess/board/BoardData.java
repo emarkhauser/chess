@@ -1,4 +1,4 @@
-package ca.markhauser.chess;
+package ca.markhauser.chess.board;
 
 import ca.markhauser.chess.piece.Piece;
 

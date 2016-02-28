@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ca.markhauser.chess.Board;
 import ca.markhauser.chess.Chess;
+import ca.markhauser.chess.board.StandardBoard;
 import ca.markhauser.chess.enums.PieceColour;
 import ca.markhauser.chess.enums.Winner;
 import ca.markhauser.chess.exception.OutOfBoardRange;
@@ -19,7 +19,7 @@ public class TestChess {
 	@Test
 	public void testNewGameAndBoard() throws OutOfBoardRange {
 		Chess chess = new Chess();
-		Board board = chess.getBoard();
+		StandardBoard board = chess.getBoard();
 		Piece piece = board.getPiece(new SpaceTwoDimensions('e', 8));
 		assertTrue(piece instanceof King);
 		assertEquals(PieceColour.BLACK, piece.getColour());
@@ -41,7 +41,7 @@ public class TestChess {
 	@Test
 	public void testMove() throws OutOfBoardRange {
 		Chess chess = new Chess();
-		Board board = chess.getBoard();
+		StandardBoard board = chess.getBoard();
 		SpaceTwoDimensions source = new SpaceTwoDimensions('b', 1);
 		SpaceTwoDimensions dest = new SpaceTwoDimensions('c', 3);
 		chess.move(new SpaceTwoDimensions('b', 1), dest);

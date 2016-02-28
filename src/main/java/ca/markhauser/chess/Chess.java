@@ -4,6 +4,8 @@
 package ca.markhauser.chess;
 
 import ca.markhauser.chess.Chess;
+import ca.markhauser.chess.board.Board;
+import ca.markhauser.chess.board.StandardBoard;
 import ca.markhauser.chess.colour.Colour;
 import ca.markhauser.chess.colour.ColourFactory;
 import ca.markhauser.chess.exception.InvalidMove;
@@ -24,7 +26,7 @@ public class Chess {
 	private boolean isCheckmate = false;
 
 	public Chess() {
-		this.board = new Board();
+		this.board = new StandardBoard();
 	}
 
 	public void move(Space source, Space dest) {
@@ -49,7 +51,7 @@ public class Chess {
 		return this.currentPlayerColour;
 	}
 
-	public Board getBoard() {
+	public StandardBoard getBoard() {
 		return this.board;
 	}
 
