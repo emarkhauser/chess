@@ -6,6 +6,8 @@ import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
 class King extends AbstractPiece implements LimitedDistance {
+	
+	private String type = "King";
 
 	protected King(Colour colour) {
 		super(colour);
@@ -19,7 +21,7 @@ class King extends AbstractPiece implements LimitedDistance {
 
 	@Override
 	public boolean validMoveDistance(Space source, Space dest) {
-		return (Math.abs(source.getFileNumber() - dest.getFileNumber()) <= 1)
+		return (Math.abs(source.getFile() - dest.getFile()) <= 1)
 				&& (Math.abs(source.getRank() - dest.getRank()) <= 1);
 	}
 

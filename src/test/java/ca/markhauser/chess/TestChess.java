@@ -4,44 +4,41 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import ca.markhauser.chess.Chess;
-import ca.markhauser.chess.board.StandardBoard;
-import ca.markhauser.chess.enums.PieceColour;
-import ca.markhauser.chess.enums.Winner;
+import ca.markhauser.chess.ChessStandard;
+import ca.markhauser.chess.board.Board;
+import ca.markhauser.chess.board.BoardStandard;
 import ca.markhauser.chess.exception.OutOfBoardRange;
-import ca.markhauser.chess.piece.King;
-import ca.markhauser.chess.piece.Knight;
 import ca.markhauser.chess.piece.Piece;
-import ca.markhauser.chess.space.SpaceTwoDimensions;
+import ca.markhauser.chess.space.SpaceFactory;
 
 public class TestChess {
 
 	@Test
 	public void testNewGameAndBoard() throws OutOfBoardRange {
-		Chess chess = new Chess();
-		StandardBoard board = chess.getBoard();
-		Piece piece = board.getPiece(new SpaceTwoDimensions('e', 8));
-		assertTrue(piece instanceof King);
+		Chess chess = new ChessStandard();
+		Board board = chess.getBoard();
+		Piece piece = board.getPiece(SpaceFactory.getSpace(5, 8));
+		assertEquals("King", piece.getType());
 		assertEquals(PieceColour.BLACK, piece.getColour());
 	}
 	
 	@Test
 	public void testResign() {
-		Chess chess = new Chess();
+		Chess chess = new ChessStandard();
 		chess.resign();
 		assertEquals(Winner.BLACK, chess.getWinner());
 	}
 	
 	@Test
 	public void testCurrentPlayerColour() {
-		Chess chess = new Chess();
+		Chess chess = new ChessStandard();
 		assertEquals(PieceColour.WHITE, chess.getCurrentPlayerColour());
 	}
 	
 	@Test
 	public void testMove() throws OutOfBoardRange {
-		Chess chess = new Chess();
-		StandardBoard board = chess.getBoard();
+		Chess chess = new ChessStandard();
+		BoardStandard board = chess.getBoard();
 		SpaceTwoDimensions source = new SpaceTwoDimensions('b', 1);
 		SpaceTwoDimensions dest = new SpaceTwoDimensions('c', 3);
 		chess.move(new SpaceTwoDimensions('b', 1), dest);

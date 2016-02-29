@@ -22,13 +22,15 @@ public class SpaceFactory {
 		}
 		
 		for (Space space: spaceSet) {
-			if (space.getFileNumber() == file && space.getRank() == rank) {
+			if (space.getFile() == file && space.getRank() == rank) {
 				return space;
 			}
 		}
 		
-		spaceSet.add(new SpaceTwoDimensions(file, rank));
-		return null;
+		Space newSpace = new SpaceTwoDimensions(file, rank);
+		
+		spaceSet.add(newSpace);
+		return newSpace;
 		
 	}
 	

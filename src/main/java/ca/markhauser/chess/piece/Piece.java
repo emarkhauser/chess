@@ -12,6 +12,7 @@ import ca.markhauser.chess.space.Space;
  */
 public interface Piece {
 
+	String getType();
 	Colour getColour();
 	boolean validMovePattern(Space source, Space dest);
 	

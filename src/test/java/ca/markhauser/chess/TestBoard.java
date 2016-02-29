@@ -8,12 +8,12 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ca.markhauser.chess.application.ChessApplication;
-import ca.markhauser.chess.board.StandardBoard;
-import ca.markhauser.chess.enums.PieceColour;
+import ca.markhauser.chess.board.Board;
+import ca.markhauser.chess.board.BoardStandard;
 import ca.markhauser.chess.exception.OutOfBoardRange;
 import ca.markhauser.chess.piece.Piece;
-import ca.markhauser.chess.piece.Rook;
-import ca.markhauser.chess.space.SpaceTwoDimensions;
+import ca.markhauser.chess.space.Space;
+import ca.markhauser.chess.space.SpaceFactory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ChessApplication.class)
@@ -21,17 +21,15 @@ public class TestBoard {
 
 	@Test
 	public void testGetPieceNotNull() throws OutOfBoardRange {
-		StandardBoard board = new StandardBoard();
-		SpaceTwoDimensions coords = new SpaceTwoDimensions('a', 1);
-		board.setPiece(new Rook(PieceColour.WHITE), coords);
-		Piece piece = board.getPiece(coords);
+		Board board = new BoardStandard(8, 8);
+		Piece piece = board.getPiece(SpaceFactory.getSpace(1, 1));
 		assertNotNull(piece);
 	}
 	
 	@Test
 	public void testGetPieceNull() throws OutOfBoardRange {
-		StandardBoard board = new StandardBoard();
-		Piece piece = board.getPiece(new SpaceTwoDimensions('d', 5));
+		Board board = new BoardStandard(8, 8);
+		Piece piece = board.getPiece(SpaceFactory.getSpace('d', 5));
 		assertNull(piece);
 	}
 

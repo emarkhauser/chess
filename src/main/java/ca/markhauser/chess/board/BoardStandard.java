@@ -12,13 +12,18 @@ import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 import ca.markhauser.chess.space.SpaceFactory;
 
-public class StandardBoard implements Board {
+public class BoardStandard implements Board {
 
-	BoardData boardData = new BoardData(maxBoardFiles, maxBoardRanks);
-	public final static int maxBoardFiles = 8;
-	public final static int maxBoardRanks = 8;
+	private BoardData boardData;
 
-	public StandardBoard() {
+	private int maxBoardFiles;
+	private int maxBoardRanks;
+
+	public BoardStandard(int maxBoardFiles, int maxBoardRanks) {
+		boardData = new BoardData();
+		this.maxBoardFiles = maxBoardFiles;
+		this.maxBoardRanks = maxBoardRanks;
+
 		try {
 			setup();
 		} catch (OutOfBoardRange e) {
@@ -26,32 +31,41 @@ public class StandardBoard implements Board {
 		}
 	}
 
-	public void setPiece(Piece piece, Space space) {
-		boardData.setPiece(piece, space);
+	public void setPiece(Piece piece, Space space) throws OutOfBoardRange {
+		if (inRange(space))
+			boardData.setPiece(piece, space);
+		else
+			throw new OutOfBoardRange();
+	}
+
+	private boolean inRange(Space space) {
+		int file = space.getFile();
+		int rank = space.getRank();
+		return file <= this.maxBoardFiles && rank <= this.maxBoardRanks && file > 0 && rank > 0;
 	}
 
 	public Piece getPiece(Space coords) {
 		return boardData.getPiece(coords);
 	}
 
-	private void setup() throws OutOfBoardRange {
+	public void setup() throws OutOfBoardRange {
 		Colour white = ColourFactory.getColour("WHITE");
 		Colour black = ColourFactory.getColour("BLACK");
-		
+
 		Piece whiteRook = PieceFactory.getPiece("ROOK", white);
 		Piece whiteKnight = PieceFactory.getPiece("KNIGHT", white);
 		Piece whiteBishop = PieceFactory.getPiece("BISHOP", white);
 		Piece whiteQueen = PieceFactory.getPiece("QUEEN", white);
-		Piece whiteKing = PieceFactory.getPiece("KING", white);		
+		Piece whiteKing = PieceFactory.getPiece("KING", white);
 		Piece whitePawn = PieceFactory.getPiece("PAWN", white);
-		
+
 		Piece blackRook = PieceFactory.getPiece("ROOK", black);
 		Piece blackKnight = PieceFactory.getPiece("KNIGHT", black);
 		Piece blackBishop = PieceFactory.getPiece("BISHOP", black);
 		Piece blackQueen = PieceFactory.getPiece("QUEEN", black);
-		Piece blackKing = PieceFactory.getPiece("KING", black);		
+		Piece blackKing = PieceFactory.getPiece("KING", black);
 		Piece blackPawn = PieceFactory.getPiece("PAWN", black);
-		
+
 		// Set white non-pawns
 		setPiece(whiteRook, SpaceFactory.getSpace(1, 1));
 		setPiece(whiteKnight, SpaceFactory.getSpace(2, 1));
@@ -92,13 +106,16 @@ public class StandardBoard implements Board {
 		setPiece(blackPawn, SpaceFactory.getSpace(7, 7));
 		setPiece(blackPawn, SpaceFactory.getSpace(8, 7));
 	}
-	
-	public void movePiece(Space source, Space dest) throws InvalidMove, NoPieceOnSpace, PieceNotMoved {
+
+	public void movePiece(Space source, Space dest) throws InvalidMove, NoPieceOnSpace, PieceNotMoved, OutOfBoardRange {
 
 		Piece piece = getPiece(source);
-		if (piece == null) throw new NoPieceOnSpace();
-		if (source.equals(dest)) throw new PieceNotMoved();
-		if (!validMove(source, dest, piece)) throw new InvalidMove();
+		if (piece == null)
+			throw new NoPieceOnSpace();
+		if (source.equals(dest))
+			throw new PieceNotMoved();
+		if (!validMove(source, dest, piece))
+			throw new InvalidMove();
 		setPiece(piece, dest);
 		setPiece(null, source);
 
@@ -108,9 +125,13 @@ public class StandardBoard implements Board {
 	 * @param source
 	 * @param dest
 	 * @param piece
+	 * @throws OutOfBoardRange
 	 */
-	private boolean validMove(Space source, Space dest, Piece piece) {
-		return piece.validMovePattern(source, dest) && (!jumpsPieces(source, dest));
+	private boolean validMove(Space source, Space dest, Piece piece) throws OutOfBoardRange {
+		if (inRange(source) && inRange(dest))
+			return piece.validMovePattern(source, dest) && (!jumpsPieces(source, dest));
+		else
+			throw new OutOfBoardRange();
 	}
 
 	private boolean jumpsPieces(Space source, Space dest) {
@@ -118,7 +139,8 @@ public class StandardBoard implements Board {
 			if (dest.getRank() > source.getRank()) {
 				int fileNum = source.getRank();
 				for (int i = source.getRank() + 1; i < dest.getRank(); i++) {
-					if (getPiece(new Space(fileNum++, i)) != null) return true;
+					if (getPiece(SpaceFactory.getSpace(fileNum++, i)) != null)
+						return true;
 				}
 			}
 		}

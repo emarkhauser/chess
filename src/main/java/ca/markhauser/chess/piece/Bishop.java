@@ -5,6 +5,8 @@ import ca.markhauser.chess.piece.move.MoveUtil;
 import ca.markhauser.chess.space.Space;
 
 class Bishop extends AbstractPiece {
+	
+	private String type = "Bishop";
 
 	protected Bishop(Colour colour) {
 		super(colour);

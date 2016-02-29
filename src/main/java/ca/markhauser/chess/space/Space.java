@@ -9,8 +9,7 @@ package ca.markhauser.chess.space;
  */
 public interface Space {
 
-	char getFile();
-	int getFileNumber();
+	int getFile();
 	int getRank();
 	
 }
