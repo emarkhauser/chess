@@ -93,23 +93,26 @@ public class ChessConfig {
 	// Configuration of moves
 	
 	@Bean(name="rankMove")
-	public Move rankMove() {
-		return new RankMove();
+	@Scope("prototype")
+	public Move rankMove(Boolean canJump, Boolean limitedDistance) {
+		return new RankMove(canJump, limitedDistance);
 	}
 	
 	@Bean(name="fileMove")
-	public Move fileMove() {
-		return new FileMove();
+	@Scope("prototype")
+	public Move fileMove(Boolean canJump, Boolean limitedDistance) {
+		return new FileMove(canJump, limitedDistance);
 	}
 	
 	@Bean(name="diagonalMove")
-	public Move diagonalMove() {
-		return new DiagonalMove();
+	@Scope("prototype")
+	public Move diagonalMove(Boolean canJump, Boolean limitedDistance) {
+		return new DiagonalMove(canJump, limitedDistance);
 	}
 	
 	@Bean(name="knightMove")
 	public Move knightMove() {
-		return new KnightMove();
+		return new KnightMove(true, false);
 	}
 
 	// Configuration of pieces
@@ -118,8 +121,8 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece rook(Colour colour) {
 		Piece rook = new PieceStandard("rook", colour);
-		rook.addMove(rankMove());
-		rook.addMove(fileMove());
+		rook.addMove(rankMove(false, false));
+		rook.addMove(fileMove(false, false));
 		return rook;
 	}
 
@@ -135,7 +138,7 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece bishop(Colour colour) {
 		Piece bishop = new PieceStandard("bishop", colour);
-		bishop.addMove(diagonalMove());
+		bishop.addMove(diagonalMove(false, false));
 		return bishop;
 	}
 
@@ -143,9 +146,9 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece queen(Colour colour) {
 		Piece queen = new PieceStandard("queen", colour);
-		queen.addMove(diagonalMove());
-		queen.addMove(rankMove());
-		queen.addMove(fileMove());
+		queen.addMove(diagonalMove(false, false));
+		queen.addMove(rankMove(false, false));
+		queen.addMove(fileMove(false, false));
 		return queen;
 	}
 

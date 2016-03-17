@@ -63,7 +63,7 @@ public class BoardStandard implements Board {
 	 */
 	private boolean validMove(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank, Piece piece) throws OutOfBoardRange {
 		if (inRange(sourceFile, sourceRank) && inRange(destFile, destRank))
-			return piece.validMovePattern(sourceFile, sourceRank, destFile, destRank) && (!jumpsPieces(sourceFile, sourceRank, destFile, destRank));
+			return piece.validMovePattern(sourceFile, sourceRank, destFile, destRank);
 		else
 			throw new OutOfBoardRange();
 	}
@@ -74,19 +74,6 @@ public class BoardStandard implements Board {
 
 	private boolean inRange(Integer file, Integer rank) {
 		return file <= this.maxBoardFiles && rank <= this.maxBoardRanks && file > 0 && rank > 0;
-	}
-
-	private boolean jumpsPieces(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
-		if (diagonalMove.isValidMove(sourceFile, sourceRank, destFile, destRank)) {
-			if (destRank > sourceRank) {
-				int fileNum = sourceRank;
-				for (int i = sourceRank + 1; i < destRank; i++) {
-					if (getPiece(fileNum++, i) != null)
-						return true;
-				}
-			}
-		}
-		return false;
 	}
 
 }
