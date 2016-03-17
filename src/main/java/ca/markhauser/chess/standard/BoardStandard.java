@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import ca.markhauser.chess.Board;
+import ca.markhauser.chess.BoardDataSource;
 import ca.markhauser.chess.InvalidMove;
 import ca.markhauser.chess.Move;
 import ca.markhauser.chess.NoPieceOnSpace;
@@ -13,7 +14,7 @@ import ca.markhauser.chess.PieceNotMoved;
 
 public class BoardStandard implements Board {
 
-	private BoardData boardData;
+	private BoardDataSource boardData;
 
 	private int maxBoardFiles;
 	private int maxBoardRanks;
@@ -22,7 +23,7 @@ public class BoardStandard implements Board {
 	@Qualifier("diagonalMove")
 	Move diagonalMove;
 
-	public BoardStandard(int maxBoardFiles, int maxBoardRanks, BoardData boardData) {
+	public BoardStandard(int maxBoardFiles, int maxBoardRanks, BoardDataSource boardData) {
 		this.boardData = boardData;
 		this.maxBoardFiles = maxBoardFiles;
 		this.maxBoardRanks = maxBoardRanks;

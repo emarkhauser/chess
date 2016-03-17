@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import ca.markhauser.chess.Board;
+import ca.markhauser.chess.BoardDataSource;
 import ca.markhauser.chess.Chess;
 import ca.markhauser.chess.Colour;
 import ca.markhauser.chess.Move;
@@ -27,8 +28,8 @@ public class ChessConfig {
 	}
 
 	@Bean
-	public BoardData boardData() {
-		BoardData boardData = new BoardData(maxFiles, maxRanks);
+	public BoardDataSource boardData() {
+		BoardDataSource boardData = new BoardDataSourceStandard(maxFiles, maxRanks);
 
 		// Reset board
 		for (int i = 1; i <= maxFiles; i++) {
@@ -75,12 +76,12 @@ public class ChessConfig {
 
 	@Bean(name="white")
 	public Colour white() {
-		return new White();
+		return new ColourStandard("white");
 	}
 
 	@Bean(name="black")
 	public Colour black() {
-		return new Black();
+		return new ColourStandard("black");
 	}
 	
 	// Configuration of moves
