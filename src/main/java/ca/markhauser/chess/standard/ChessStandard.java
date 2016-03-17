@@ -61,10 +61,6 @@ public class ChessStandard implements Chess {
 		changeToNextPlayer();
 	}
 
-	private void changeToNextPlayer() {
-		this.currentPlayerColour = this.currentPlayerColour == white ? black : white;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -128,6 +124,8 @@ public class ChessStandard implements Chess {
 		return this.winner;
 	}
 
-
+	private void changeToNextPlayer() {
+		this.currentPlayerColour = this.currentPlayerColour == white ? black : white;
+	}
 
 }

@@ -21,7 +21,7 @@ public class BoardStandard implements Board {
 	
 	@Autowired
 	@Qualifier("diagonalMove")
-	Move diagonalMove;
+	private Move diagonalMove;
 
 	public BoardStandard(int maxBoardFiles, int maxBoardRanks, BoardDataSource boardData) {
 		this.boardData = boardData;
@@ -37,18 +37,10 @@ public class BoardStandard implements Board {
 			throw new OutOfBoardRange();
 	}
 
-	private boolean inRange(Integer file, Integer rank) {
-		return file <= this.maxBoardFiles && rank <= this.maxBoardRanks && file > 0 && rank > 0;
-	}
-
 	public Piece getPiece(Integer file, Integer rank) {
 		return boardData.getPiece(file, rank);
 	}
 	
-	private Boolean equalSourceDest(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
-		return (sourceFile == destFile) && (sourceRank == destRank);
-	}
-
 	public void movePiece(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) throws InvalidMove, NoPieceOnSpace, PieceNotMoved, OutOfBoardRange {
 
 		Piece piece = getPiece(sourceFile, sourceRank);
@@ -74,6 +66,14 @@ public class BoardStandard implements Board {
 			return piece.validMovePattern(sourceFile, sourceRank, destFile, destRank) && (!jumpsPieces(sourceFile, sourceRank, destFile, destRank));
 		else
 			throw new OutOfBoardRange();
+	}
+
+	private Boolean equalSourceDest(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
+		return (sourceFile == destFile) && (sourceRank == destRank);
+	}
+
+	private boolean inRange(Integer file, Integer rank) {
+		return file <= this.maxBoardFiles && rank <= this.maxBoardRanks && file > 0 && rank > 0;
 	}
 
 	private boolean jumpsPieces(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
