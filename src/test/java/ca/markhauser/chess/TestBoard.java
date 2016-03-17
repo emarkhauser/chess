@@ -1,4 +1,4 @@
-package ca.markhauser.chess.standard;
+package ca.markhauser.chess;
 
 import static org.junit.Assert.*;
 

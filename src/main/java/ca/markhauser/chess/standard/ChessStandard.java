@@ -21,44 +21,21 @@ import ca.markhauser.chess.PieceNotMoved;
 public class ChessStandard implements Chess {
 
 	private Board board;
-
-	@Autowired
-	@Qualifier("black")
-	private Colour black;
-
-	@Autowired
-	@Qualifier("white")
 	private Colour white;
-
-	private Colour currentPlayerColour = white;
-
+	private Colour black;
+	private Colour currentPlayerColour;
 	private Colour winner = null;
-	private boolean isCheck = false;
-	private boolean isCheckmate = false;
+	private Boolean isCheck = false;
+	private Boolean isCheckmate = false;
+	private Boolean isDraw = false;
+	private Boolean drawCalled = false;
+	private Boolean isResign = false;
 
-	public ChessStandard(Board board) {
+	public ChessStandard(Board board, Colour white, Colour black) {
 		this.board = board;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ca.markhauser.chess.Chess#move(ca.markhauser.chess.space.Space,
-	 * ca.markhauser.chess.space.Space)
-	 */
-	public void move(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
-		try {
-			board.movePiece(sourceFile, sourceRank, destFile, destRank);
-		} catch (InvalidMove e) {
-			e.printStackTrace();
-		} catch (NoPieceOnSpace e) {
-			e.printStackTrace();
-		} catch (PieceNotMoved e) {
-			e.printStackTrace();
-		} catch (OutOfBoardRange e) {
-			e.printStackTrace();
-		}
-		changeToNextPlayer();
+		this.white = white;
+		this.black = black;
+		this.currentPlayerColour = white;
 	}
 
 	/*
@@ -82,10 +59,37 @@ public class ChessStandard implements Chess {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see ca.markhauser.chess.Chess#move(ca.markhauser.chess.space.Space,
+	 * ca.markhauser.chess.space.Space)
+	 */
+	public void move(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
+		if (!gameOver()) {
+			try {
+				board.movePiece(sourceFile, sourceRank, destFile, destRank);
+			} catch (InvalidMove e) {
+				e.printStackTrace();
+			} catch (NoPieceOnSpace e) {
+				e.printStackTrace();
+			} catch (PieceNotMoved e) {
+				e.printStackTrace();
+			} catch (OutOfBoardRange e) {
+				e.printStackTrace();
+			}
+			this.drawCalled = false;
+			changeToNextPlayer();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see ca.markhauser.chess.Chess#resign()
 	 */
 	public void resign() {
-		this.winner = this.currentPlayerColour == white ? black : white;
+		if (!gameOver()) {
+			this.winner = this.currentPlayerColour == white ? black : white;
+			this.isResign = true;
+		}
 	}
 
 	/*
@@ -94,7 +98,14 @@ public class ChessStandard implements Chess {
 	 * @see ca.markhauser.chess.Chess#draw()
 	 */
 	public void draw() {
-		// TODO Auto-generated method stub
+		if (!gameOver()) {
+			if (this.drawCalled) {
+				this.isDraw = true;
+			} else {
+				this.drawCalled = true;
+				changeToNextPlayer();
+			}
+		}
 	}
 
 	/*
@@ -126,6 +137,10 @@ public class ChessStandard implements Chess {
 
 	private void changeToNextPlayer() {
 		this.currentPlayerColour = this.currentPlayerColour == white ? black : white;
+	}
+
+	private Boolean gameOver() {
+		return this.isCheckmate || this.isDraw || this.isResign;
 	}
 
 }

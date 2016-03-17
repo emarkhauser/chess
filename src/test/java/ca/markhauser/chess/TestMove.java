@@ -1,4 +1,4 @@
-package ca.markhauser.chess.standard;
+package ca.markhauser.chess;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ca.markhauser.chess.Move;
 import ca.markhauser.chess.OutOfBoardRange;
+import ca.markhauser.chess.standard.ChessApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ChessApplication.class)

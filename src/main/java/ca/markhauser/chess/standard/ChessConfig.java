@@ -17,9 +17,23 @@ public class ChessConfig {
 	private static final int maxFiles = 8;
 	private static final int maxRanks = 8;
 
+	// Configuration of colours
+	
+	@Bean(name="white")
+	public Colour white() {
+		return new ColourStandard("white");
+	}
+
+	// Configuration of colours
+	
+	@Bean(name="black")
+	public Colour black() {
+		return new ColourStandard("black");
+	}
+
 	@Bean
 	public Chess chess() {
-		return new ChessStandard(board());
+		return new ChessStandard(board(), white(), black());
 	}
 
 	@Bean
@@ -74,15 +88,7 @@ public class ChessConfig {
 
 	// Configuration of colours
 
-	@Bean(name="white")
-	public Colour white() {
-		return new ColourStandard("white");
-	}
-
-	@Bean(name="black")
-	public Colour black() {
-		return new ColourStandard("black");
-	}
+	
 	
 	// Configuration of moves
 	
