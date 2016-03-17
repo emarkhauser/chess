@@ -7,8 +7,9 @@ public interface Chess {
 	Board getBoard();
 	void resign();
 	void draw();
-	boolean isCheck();
-	boolean isCheckmate();
+	Boolean isCheck();
+	Boolean isCheckmate();
+	Boolean isDraw();
 	Colour getWinner();
 
 }

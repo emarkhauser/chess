@@ -3,9 +3,6 @@
  */
 package ca.markhauser.chess.standard;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import ca.markhauser.chess.Board;
 import ca.markhauser.chess.Chess;
 import ca.markhauser.chess.Colour;
@@ -113,7 +110,7 @@ public class ChessStandard implements Chess {
 	 * 
 	 * @see ca.markhauser.chess.Chess#isCheck()
 	 */
-	public boolean isCheck() {
+	public Boolean isCheck() {
 		return this.isCheck;
 	}
 
@@ -122,8 +119,12 @@ public class ChessStandard implements Chess {
 	 * 
 	 * @see ca.markhauser.chess.Chess#isCheckmate()
 	 */
-	public boolean isCheckmate() {
+	public Boolean isCheckmate() {
 		return this.isCheckmate;
+	}
+
+	public Boolean isDraw() {
+		return this.isDraw;
 	}
 
 	/*

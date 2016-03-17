@@ -62,4 +62,14 @@ public class TestChess {
 		assertEquals(black, chess.getCurrentPlayerColour());
 	}
 	
+	@Test
+	@DirtiesContext
+	public void testDraw() {
+		chess.draw();
+		assertEquals(black, chess.getCurrentPlayerColour());
+		assertFalse(chess.isDraw());
+		chess.draw();
+		assertTrue(chess.isDraw());
+	}
+	
 }
