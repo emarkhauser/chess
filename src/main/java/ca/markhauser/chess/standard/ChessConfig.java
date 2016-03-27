@@ -23,13 +23,13 @@ public class ChessConfig {
 	public Colour white() {
 		return new ColourStandard("white");
 	}
-
-	// Configuration of colours
 	
 	@Bean(name="black")
 	public Colour black() {
 		return new ColourStandard("black");
 	}
+	
+	// Configuration of Game
 
 	@Bean
 	public Chess chess() {
@@ -94,25 +94,25 @@ public class ChessConfig {
 	
 	@Bean(name="rankMove")
 	@Scope("prototype")
-	public Move rankMove(Boolean canJump, Boolean limitedDistance) {
-		return new RankMove(canJump, limitedDistance);
+	public Move rankMove() {
+		return new RankMove();
 	}
 	
 	@Bean(name="fileMove")
 	@Scope("prototype")
-	public Move fileMove(Boolean canJump, Boolean limitedDistance) {
-		return new FileMove(canJump, limitedDistance);
+	public Move fileMove() {
+		return new FileMove();
 	}
 	
 	@Bean(name="diagonalMove")
 	@Scope("prototype")
-	public Move diagonalMove(Boolean canJump, Boolean limitedDistance) {
-		return new DiagonalMove(canJump, limitedDistance);
+	public Move diagonalMove() {
+		return new DiagonalMove();
 	}
 	
 	@Bean(name="knightMove")
 	public Move knightMove() {
-		return new KnightMove(true, false);
+		return new KnightMove();
 	}
 
 	// Configuration of pieces
@@ -121,8 +121,8 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece rook(Colour colour) {
 		Piece rook = new PieceStandard("rook", colour);
-		rook.addMove(rankMove(false, false));
-		rook.addMove(fileMove(false, false));
+		rook.addMove(rankMove());
+		rook.addMove(fileMove());
 		return rook;
 	}
 
@@ -138,7 +138,7 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece bishop(Colour colour) {
 		Piece bishop = new PieceStandard("bishop", colour);
-		bishop.addMove(diagonalMove(false, false));
+		bishop.addMove(diagonalMove());
 		return bishop;
 	}
 
@@ -146,9 +146,9 @@ public class ChessConfig {
 	@Scope("prototype")
 	public Piece queen(Colour colour) {
 		Piece queen = new PieceStandard("queen", colour);
-		queen.addMove(diagonalMove(false, false));
-		queen.addMove(rankMove(false, false));
-		queen.addMove(fileMove(false, false));
+		queen.addMove(diagonalMove());
+		queen.addMove(rankMove());
+		queen.addMove(fileMove());
 		return queen;
 	}
 

@@ -11,7 +11,7 @@ public interface Piece {
 
 	String getType();
 	Colour getColour();
-	Boolean validMovePattern(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank);
+	Boolean validMovePattern(Board board, Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank);
 	void addMove(Move move);
 	
 }

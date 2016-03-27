@@ -18,6 +18,9 @@ import ca.markhauser.chess.standard.ChessApplication;
 public class TestMove {
 	
 	@Autowired
+	Board board;
+	
+	@Autowired
 	@Qualifier("diagonalMove")
 	Move diagonalMove;
 	
@@ -35,32 +38,32 @@ public class TestMove {
 
 	@Test
 	public void testIsDiagonalMove() throws OutOfBoardRange {
-		assertTrue(diagonalMove.isValidMove(1, 1, 8, 8));
+		assertTrue(diagonalMove.isValidMove(board, 1, 1, 8, 8));
 	}
 	
 	@Test
 	public void testIsNotDiagonalMove() throws OutOfBoardRange {
-		assertFalse(diagonalMove.isValidMove(5, 5, 8, 1));
+		assertFalse(diagonalMove.isValidMove(board, 5, 5, 8, 1));
 	}
 
 	@Test
 	public void testIsFileMove() throws OutOfBoardRange {
-		assertTrue(fileMove.isValidMove(1, 1, 1, 7));
+		assertTrue(fileMove.isValidMove(board, 1, 1, 1, 7));
 	}
 	
 	@Test
 	public void testIsNotFileMove() throws OutOfBoardRange {
-		assertFalse(fileMove.isValidMove(2, 1, 5, 7));
+		assertFalse(fileMove.isValidMove(board, 2, 1, 5, 7));
 	}
 
 	@Test
 	public void testIsRankMove() throws OutOfBoardRange {
-		assertTrue(rankMove.isValidMove(1, 3, 6, 3));
+		assertTrue(rankMove.isValidMove(board, 1, 3, 6, 3));
 	}
 	
 	@Test
 	public void testIsNotRankMove() throws OutOfBoardRange {
-		assertFalse(rankMove.isValidMove(2, 7, 5, 2));
+		assertFalse(rankMove.isValidMove(board, 2, 7, 5, 2));
 	}
 
 }

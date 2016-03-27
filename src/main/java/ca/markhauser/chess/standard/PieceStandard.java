@@ -2,6 +2,7 @@ package ca.markhauser.chess.standard;
 
 import java.util.HashSet;
 
+import ca.markhauser.chess.Board;
 import ca.markhauser.chess.Colour;
 import ca.markhauser.chess.Move;
 import ca.markhauser.chess.Piece;
@@ -25,9 +26,9 @@ public class PieceStandard implements Piece {
 		return this.colour;
 	}
 
-	public Boolean validMovePattern(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
+	public Boolean validMovePattern(Board board, Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank) {
 		for (Move move : moves) {
-			if (move.isValidMove(sourceFile, sourceRank, destFile, destRank))
+			if (move.isValidMove(board, sourceFile, sourceRank, destFile, destRank))
 				return true;
 		}
 		return false;

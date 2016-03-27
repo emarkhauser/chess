@@ -40,8 +40,8 @@ public class TestPiece {
 	@DirtiesContext
 	public void testInvalidMovePatternForRook() throws InvalidMove, NoPieceOnSpace, PieceNotMoved, OutOfBoardRange {
 		Piece RookBlack = board.getPiece(8, 8);
-		board.movePiece(8, 8, 8, 4);
-		assertNull(board.getPiece(8, 4));
+		board.movePiece(8, 8, 7, 7);
+		assertNull(board.getPiece(7, 7));
 		assertEquals(RookBlack, board.getPiece(8, 8));
 	}
 

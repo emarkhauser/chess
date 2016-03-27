@@ -63,7 +63,7 @@ public class BoardStandard implements Board {
 	 */
 	private boolean validMove(Integer sourceFile, Integer sourceRank, Integer destFile, Integer destRank, Piece piece) throws OutOfBoardRange {
 		if (inRange(sourceFile, sourceRank) && inRange(destFile, destRank))
-			return piece.validMovePattern(sourceFile, sourceRank, destFile, destRank);
+			return piece.validMovePattern(this, sourceFile, sourceRank, destFile, destRank);
 		else
 			throw new OutOfBoardRange();
 	}
